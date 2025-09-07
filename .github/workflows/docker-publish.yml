@@ -13,6 +13,13 @@ jobs:
       packages: write
 
     steps:
+
+
+      - name: Set environment variables
+        run: |
+          echo "USERNAME=$(echo $GITHUB_ACTOR | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+          echo "REPONAME=$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -26,7 +33,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: ${{ env.USERNAME }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
@@ -35,4 +42,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/frpc:latest
+          tags: ghcr.io/${{ env.REPONAME }}/frpc:latest
