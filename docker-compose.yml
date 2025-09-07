@@ -4,3 +4,4 @@ services:
     container_name: frpc
     volumes:
       - ./data:/data
+    network_mode: "host"
