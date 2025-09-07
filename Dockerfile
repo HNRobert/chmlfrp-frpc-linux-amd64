@@ -8,4 +8,4 @@ COPY frpc /app/frpc
 WORKDIR /app
 
 # Set entrypoint to run frpc with config from /data
-ENTRYPOINT ["/app/frpc", "-c", "/data"]
+ENTRYPOINT ["/app/frpc", "--config_dir", "/data"]
