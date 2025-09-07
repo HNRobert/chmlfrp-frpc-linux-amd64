@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frpc-config
+data:
+  frpc.ini: |
+    # 在此处填写 frpc 的配置内容
+    [common]
+    server_addr = x.x.x.x
+    server_port = 7000
+  frpc_2.ini: |
+    # 在此处填写 frpc2 的配置内容
+    [common]
+    server_addr = x.x.x.x
+    server_port = 7000
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frpc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frpc
+  template:
+    metadata:
+      labels:
+        app: frpc
+    spec:
+      containers:
+        - name: frpc
+          image: ghcr.io/hnrobert/chmlfrp-frpc-linux-amd64:latest
+          volumeMounts:
+            - name: frpc-config-volume
+              mountPath: /data
+      volumes:
+        - name: frpc-config-volume
+          configMap:
+            name: frpc-config

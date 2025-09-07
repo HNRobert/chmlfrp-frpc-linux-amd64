@@ -1,0 +1,6 @@
+services:
+  frpc:
+    image: ghcr.io/hnrobert/chmlfrp-frpc-linux-amd64:latest
+    container_name: frpc
+    volumes:
+      - ./data:/data
