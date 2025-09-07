@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - frpc
+      - Dockerfile
+      - .github/workflows/docker-publish.yml
 
 jobs:
   build-and-push:
