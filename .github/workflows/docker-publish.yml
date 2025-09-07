@@ -42,4 +42,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ghcr.io/${{ env.REPONAME }}/frpc:latest
+          tags: ghcr.io/${{ env.REPONAME }}:latest
